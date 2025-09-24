@@ -1,10 +1,18 @@
 from fastapi import FastAPI, Request, Depends
 from repository import TasksDAO
 from schemas import TasksGetSchemas, TasksAddSchemas
+from database import Base, create_tables, delete_tables, engine
 from typing import Annotated
 import uvicorn
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await create_tables()
+    yield
+    await delete_tables()
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get('/home')
 async def get_home_page(request: Request):
