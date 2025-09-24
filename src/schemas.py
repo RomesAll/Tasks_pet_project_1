@@ -5,4 +5,4 @@ class TasksAddSchemas(BaseModel):
     desc: str | None = None
 
 class TasksGetSchemas(TasksAddSchemas):
-    id: int = Field(ge=1)
+    id: int
