@@ -16,7 +16,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get('/home')
 async def get_home_page(request: Request):
-    return {'data': f'hello {request.client.host}'}
+    return {'data': f'hello - {request.client.host}'}
 
 @app.get('/tasks')
 async def get_tasks():
